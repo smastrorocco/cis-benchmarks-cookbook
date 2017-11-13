@@ -1,0 +1,7 @@
+# Adjust line length
+Metrics/LineLength:
+  Max: 100
+
+# Ignore CRLF
+Layout/EndOfLine:
+  Enabled: false

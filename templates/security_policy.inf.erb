@@ -1,0 +1,13 @@
+[Unicode]
+Unicode=yes
+[Version]
+signature="$CHICAGO$"
+Revision=1
+[System Access]
+<% @security_policy['system_access'].each do |setting, value| %>
+<%= setting %> = <%= value %>
+<% end %>
+[Privilege Rights]
+<% @security_policy['privilege_rights'].each do |setting, value| %>
+<%= setting %> = <%= value %>
+<% end %>
