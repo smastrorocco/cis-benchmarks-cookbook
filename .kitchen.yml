@@ -4,23 +4,24 @@ driver:
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7
+  - name: windows-server-2012r2
 
 suites:
   - name: default
+    includes:
+      - windows-server-2012r2
     run_list:
       - recipe[cis-benchmarks::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
     attributes:
+      cis-benchmarks:
+        benchmark: windows_server_2012r2
+        windows_server_2012r2:
+          security_policy:
+            privilege_rights:
+              SeDenyNetworkLogonRight: Guests
+              SeDenyRemoteInteractiveLogonRight: Guests
