@@ -5,13 +5,18 @@
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
 # CIS Microsoft Windows Server 2012 R2 Benchmark v2.2.1
-# Valid profiles: member_server | domain_controller
+# Valid profile names: member_server | domain_controller
 # Valid profile levels: 1 | 2
-default['cis-benchmarks']['windows_server_2012r2']['profile'] = 'member_server'
-default['cis-benchmarks']['windows_server_2012r2']['profile_level'] = 2
+default['cis-benchmarks']['windows_server_2012r2']['profile_name'] = 'member_server'
+default['cis-benchmarks']['windows_server_2012r2']['profile_level'] = 1
 
-profile = node['cis-benchmarks']['windows_server_2012r2']['profile']
-profile_level = node['cis-benchmarks']['windows_server_2012r2']['profile_level']
+# NOTE: Many attributes below need to be derived based on the profile attibutes
+#       above.  If an attribute is set to nil, that is because it will be
+#       derived during the chef-client run.  If the attribute is defined in a
+#       wrapper cookbook, environment, or role, that value will be used instead.
+#       Use an empty string to define the attribute as 'none', in which case the
+#       attribute will not be derived.  Any attribute that is derived will be
+#       set at default precedence.
 
 ##########################################################################
 #                        SECURITY POLICY SETTINGS                        #
@@ -89,12 +94,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeNetworkLogonRight'] = case profile
-                                                                                                                   when 'domain_controller'
-                                                                                                                     'Administrators,Authenticated Users,ENTERPRISE DOMAIN CONTROLLERS'
-                                                                                                                   when 'member_server'
-                                                                                                                     'Administrators,Authenticated Users'
-                                                                                                                   end
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeNetworkLogonRight'] = nil
 
 # 2.2.3 (L1) Ensure 'Act as part of the operating system' is set to 'No One'
 # Profile Applicability:
@@ -105,7 +105,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # 2.2.4 (L1) Ensure 'Add workstations to domain' is set to 'Administrators'
 # Profile Applicability:
 #  Level 1 - Domain Controller
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeMachineAccountPrivilege'] = 'Administrators' if profile == 'domain_controller'
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeMachineAccountPrivilege'] = nil
 
 # 2.2.5 (L1) Ensure 'Adjust memory quotas for a process' is set to 'Administrators, LOCAL SERVICE, NETWORK SERVICE'
 # Profile Applicability:
@@ -117,23 +117,13 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeInteractiveLogonRight'] = case profile
-                                                                                                                       when 'domain_controller'
-                                                                                                                         'Administrators,ENTERPRISE DOMAIN CONTROLLERS'
-                                                                                                                       when 'member_server'
-                                                                                                                         'Administrators'
-                                                                                                                       end
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeInteractiveLogonRight'] = nil
 
 # 2.2.7 (L1) Configure 'Allow log on through Remote Desktop Services'
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeRemoteInteractiveLogonRight'] = case profile
-                                                                                                                             when 'domain_controller'
-                                                                                                                               'Administrators'
-                                                                                                                             when 'member_server'
-                                                                                                                               'Administrators,Remote Desktop Users'
-                                                                                                                             end
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeRemoteInteractiveLogonRight'] = nil
 
 # 2.2.8 (L1) Ensure 'Back up files and directories' is set to 'Administrators'
 # Profile Applicability:
@@ -193,12 +183,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeDenyNetworkLogonRight'] = case profile
-                                                                                                                       when 'domain_controller'
-                                                                                                                         'Guests,Local account'
-                                                                                                                       when 'member_server'
-                                                                                                                         'Guests,Local account and member of Administrators group'
-                                                                                                                       end
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeDenyNetworkLogonRight'] = nil
 
 # 2.2.18 (L1) Ensure 'Deny log on as a batch job' to include 'Guests'
 # Profile Applicability:
@@ -228,12 +213,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeEnableDelegationPrivilege'] = case profile
-                                                                                                                           when 'domain_controller'
-                                                                                                                             'Administrators'
-                                                                                                                           when 'member_server'
-                                                                                                                             ''
-                                                                                                                           end
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeEnableDelegationPrivilege'] = nil
 
 # 2.2.23 (L1) Ensure 'Force shutdown from a remote system' is set to 'Administrators'
 # Profile Applicability:
@@ -274,7 +254,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # 2.2.29 (L2) Ensure 'Log on as a batch job' is set to 'Administrators'
 # Profile Applicability:
 #  Level 2 - Domain Controller
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeBatchLogonRight'] = 'Administrators' if (profile == 'domain_controller') && (profile_level == 2)
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeBatchLogonRight'] = nil
 
 # 2.2.30 (L1) Configure 'Manage auditing and security log'
 # Profile Applicability:
@@ -333,7 +313,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # 2.2.39 (L1) Ensure 'Synchronize directory service data' is set to 'No One'
 # Profile Applicability:
 #  Level 1 - Domain Controller
-default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeSyncAgentPrivilege'] = '' if profile == 'domain_controller'
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeSyncAgentPrivilege'] = nil
 
 # 2.2.40 (L1) Ensure 'Take ownership of files or other objects' is set to 'Administrators'
 # Profile Applicability:
