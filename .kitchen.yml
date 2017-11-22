@@ -12,16 +12,36 @@ platforms:
   - name: windows-server-2012r2
 
 suites:
-  - name: default
+  - name: level-1-member-server
     includes:
       - windows-server-2012r2
     run_list:
       - recipe[cis-benchmarks::default]
     attributes:
       cis-benchmarks:
-        benchmark: windows_server_2012r2
         windows_server_2012r2:
           security_policy:
             privilege_rights:
               SeDenyNetworkLogonRight: Guests
               SeDenyRemoteInteractiveLogonRight: Guests
+
+  - name: level-2-member-server
+    includes:
+      - windows-server-2012r2
+    run_list:
+      - recipe[cis-benchmarks::default]
+    attributes:
+      cis-benchmarks:
+        windows_server_2012r2:
+          profile_level: 2
+          security_policy:
+            privilege_rights:
+              SeDenyNetworkLogonRight: Guests
+              SeDenyRemoteInteractiveLogonRight: Guests
+            registry_keys:
+              2.3.10.4:
+                name: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
+                values:
+                  name: disabledomaincreds
+                  type: :dword
+                  data: 0
