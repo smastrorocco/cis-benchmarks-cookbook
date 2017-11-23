@@ -39,9 +39,9 @@ suites:
               SeDenyNetworkLogonRight: Guests
               SeDenyRemoteInteractiveLogonRight: Guests
             registry_keys:
-              2.3.10.4:
+              '2.3.10.4':
                 name: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
                 values:
                   name: disabledomaincreds
-                  type: :dword
+                  type: dword
                   data: 0

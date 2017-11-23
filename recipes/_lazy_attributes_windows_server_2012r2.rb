@@ -177,11 +177,7 @@ when 'domain_controller'
       values: {
         name: 'NullSessionPipes',
         type: :multi_string,
-        data: [
-          'LSARPC',
-          'NETLOGON',
-          'SAMR',
-        ],
+        data: %w(LSARPC NETLOGON SAMR),
       },
     }
   end
