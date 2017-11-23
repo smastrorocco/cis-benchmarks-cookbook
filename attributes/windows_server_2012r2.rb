@@ -789,3 +789,463 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_
     ],
   },
 }
+
+# 2.3.10.8 (L1) Configure 'Network access: Remotely accessible registry paths and sub-paths'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.8'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg\AllowedPaths',
+  values: {
+    name: 'Machine',
+    type: :multi_string,
+    data: [
+      'Software\Microsoft\OLAP Server',
+      'Software\Microsoft\Windows NT\CurrentVersion\Perflib',
+      'Software\Microsoft\Windows NT\CurrentVersion\Print',
+      'Software\Microsoft\Windows NT\CurrentVersion\Windows',
+      'System\CurrentControlSet\Control\ContentIndex',
+      'System\CurrentControlSet\Control\Print\Printers',
+      'System\CurrentControlSet\Control\Terminal Server',
+      'System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration',
+      'System\CurrentControlSet\Control\Terminal Server\UserConfig',
+      'System\CurrentControlSet\Services\Eventlog',
+      'System\CurrentControlSet\Services\SysmonLog',
+    ],
+  },
+}
+
+# 2.3.10.9 (L1) Ensure 'Network access: Restrict anonymous access to Named Pipes and Shares' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.9'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
+  values: {
+    name: 'restrictnullsessaccess',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.10.10 (L1) Ensure 'Network access: Shares that can be accessed anonymously' is set to 'None'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.10'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
+  values: {
+    name: 'NullSessionShares',
+    type: :multi_string,
+    data: [],
+  },
+}
+
+# 2.3.10.11 (L1) Ensure 'Network access: Sharing and security model for local accounts' is set to 'Classic - local users authenticate as themselves'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.11'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  values: {
+    name: 'forceguest',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 2.3.11 Network security
+# 2.3.11.1 (L1) Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  values: {
+    name: 'UseMachineId',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.11.2 (L1) Ensure 'Network security: Allow LocalSystem NULL session fallback' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  values: {
+    name: 'allownullsessionfallback',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 2.3.11.3 (L1) Ensure 'Network Security: Allow PKU2U authentication requests to this computer to use online identities' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\pku2u',
+  values: {
+    name: 'AllowOnlineID',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 2.3.11.4 (L1) Ensure 'Network Security: Configure encryption types allowed for Kerberos' is set to 'RC4_HMAC_MD5, AES128_HMAC_SHA1, AES256_HMAC_SHA1, Future encryption types'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\Kerberos\Parameters',
+  values: {
+    name: 'SupportedEncryptionTypes',
+    type: :dword,
+    data: 2147483644,
+  },
+}
+
+# 2.3.11.5 (L1) Ensure 'Network security: Do not store LAN Manager hash value on next password change' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.5'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  values: {
+    name: 'NoLmHash',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.11.6 (L1) Ensure 'Network security: Force logoff when logon hours expire' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.6'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
+  values: {
+    name: 'enableforcedlogoff',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.11.7 (L1) Ensure 'Network security: LAN Manager authentication level' is set to 'Send NTLMv2 response only. Refuse LM & NTLM'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.7'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  values: {
+    name: 'LmCompatibilityLevel',
+    type: :dword,
+    data: 5,
+  },
+}
+
+# 2.3.11.8 (L1) Ensure 'Network security: LDAP client signing requirements' is set to 'Negotiate signing' or higher
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.8'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ldap',
+  values: {
+    name: 'ldapclientintegrity',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.11.9 (L1) Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) clients' is set to 'Require NTLMv2 session security, Require 128-bit encryption'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.9'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  values: {
+    name: 'NtlmMinClientSec',
+    type: :dword,
+    data: 537395200,
+  },
+}
+
+# 2.3.11.10 (L1) Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) servers' is set to 'Require NTLMv2 session security, Require 128-bit encryption'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.11.10'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  values: {
+    name: 'NtlmMinServerSec',
+    type: :dword,
+    data: 537395200,
+  },
+}
+
+## 2.3.13 Shutdown
+# 2.3.13.1 (L1) Ensure 'Shutdown: Allow system to be shut down without having to log on' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.13.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'shutdownwithoutlogon',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 2.3.15 System objects
+# 2.3.15.1 (L1) Ensure 'System objects: Require case insensitivity for nonWindows subsystems' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.15.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel',
+  values: {
+    name: 'obcaseinsensitive',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.15.2 (L1) Ensure 'System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.15.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager',
+  values: {
+    name: 'ProtectionMode',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 2.3.17 User Account Control
+# 2.3.17.1 (L1) Ensure 'User Account Control: Admin Approval Mode for the Built-in Administrator account' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'FilterAdministratorToken',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.17.2 (L1) Ensure 'User Account Control: Allow UIAccess applications to prompt for elevation without using the secure desktop' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'EnableUIADesktopToggle',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 2.3.17.3 (L1) Ensure 'User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode' is set to 'Prompt for consent on the secure desktop'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'ConsentPromptBehaviorAdmin',
+    type: :dword,
+    data: 2,
+  },
+}
+
+# 2.3.17.4 (L1) Ensure 'User Account Control: Behavior of the elevation prompt for standard users' is set to 'Automatically deny elevation requests'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'ConsentPromptBehaviorUser',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 2.3.17.5 (L1) Ensure 'User Account Control: Detect application installations and prompt for elevation' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.5'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'EnableInstallerDetection',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.17.6 (L1) Ensure 'User Account Control: Only elevate UIAccess applications that are installed in secure locations' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.6'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'EnableSecureUIAPaths',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.17.7 (L1) Ensure 'User Account Control: Run all administrators in Admin Approval Mode' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.7'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'EnableLUA',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.17.8 (L1) Ensure 'User Account Control: Switch to the secure desktop when prompting for elevation' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.8'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'PromptOnSecureDesktop',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 2.3.17.9 (L1) Ensure 'User Account Control: Virtualize file and registry write failures to per-user locations' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.17.9'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'EnableVirtualization',
+    type: :dword,
+    data: 1,
+  },
+}
+
+### 9 Windows Firewall With Advanced Security
+## 9.1 Domain Profile
+# 9.1.1 (L1) Ensure 'Windows Firewall: Domain: Firewall state' is set to 'On (recommended)'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'EnableFirewall',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 9.1.2 (L1) Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default)'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'DefaultInboundAction',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 9.1.3 (L1) Ensure 'Windows Firewall: Domain: Outbound connections' is set to 'Allow (default)'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'DefaultOutboundAction',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 9.1.4 (L1) Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'DisableNotifications',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 9.1.5 (L1) Ensure 'Windows Firewall: Domain: Settings: Apply local firewall rules' is set to 'Yes (default)'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.5'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'AllowLocalPolicyMerge',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 9.1.6 (L1) Ensure 'Windows Firewall: Domain: Settings: Apply local connection security rules' is set to 'Yes (default)'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.6'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile',
+  values: {
+    name: 'AllowLocalIPsecPolicyMerge',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 9.1.7 (L1) Ensure 'Windows Firewall: Domain: Logging: Name' is set to '%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.7'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging',
+  values: {
+    name: 'LogFilePath',
+    type: :string,
+    data: '%SYSTEMROOT%\System32\LogFiles\Firewall\domainfw.log',
+  },
+}
+
+# 9.1.8 (L1) Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to '16,384 KB or greater'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['9.1.8'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging',
+  values: {
+    name: 'LogFileSize',
+    type: :dword,
+    data: 16384,
+  },
+}
