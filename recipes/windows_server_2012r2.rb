@@ -52,7 +52,7 @@ reg_keys.each do |k, v|
     values [
       {
         name: v['values']['name'],
-        type: v['values']['type'],
+        type: v['values']['type'].to_sym,
         data: v['values']['data'],
       },
     ]
