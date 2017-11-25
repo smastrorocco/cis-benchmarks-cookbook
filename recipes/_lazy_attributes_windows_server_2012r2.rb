@@ -8,6 +8,7 @@ profile_name  = node['cis-benchmarks']['windows_server_2012r2']['profile_name']
 profile_level = node['cis-benchmarks']['windows_server_2012r2']['profile_level']
 
 # TODO: Make this not disgusting
+# TODO: Fix structure, doesn't even properly apply all domain controller stuff
 case profile_name
 when 'member_server'
   if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeNetworkLogonRight'].nil?
@@ -30,8 +31,8 @@ when 'member_server'
     node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeEnableDelegationPrivilege'] = ''
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.7.8'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.7.8'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.8'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.8'] = {
       name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
       values: {
         name: 'ForceUnlockLogon',
@@ -41,8 +42,8 @@ when 'member_server'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.9.5'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.9.5'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.9.5'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.9.5'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
       values: {
         name: 'SmbServerNameHardeningLevel',
@@ -52,8 +53,8 @@ when 'member_server'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.2'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.2'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.2'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.2'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
       values: {
         name: 'restrictanonymoussam',
@@ -63,8 +64,8 @@ when 'member_server'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.3'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.3'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.3'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.3'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
       values: {
         name: 'restrictanonymous',
@@ -74,8 +75,8 @@ when 'member_server'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.6'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.6'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.6'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.6'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
       values: {
         name: 'NullSessionPipes',
@@ -85,10 +86,21 @@ when 'member_server'
     }
   end
 
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.6.1'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.6.1'] = {
+      name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+      values: {
+        name: 'LocalAccountTokenFilterPolicy',
+        type: :dword,
+        data: 0,
+      },
+    }
+  end
+
   # Level 2
   if profile_level == 2
-    if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.7.6'].nil?
-      node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.7.6'] = {
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.6'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.6'] = {
         name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
         values: {
           name: 'CachedLogonsCount',
@@ -98,11 +110,231 @@ when 'member_server'
       }
     end
 
-    if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.4'].nil?
-      node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.4'] = {
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.4'] = {
         name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
         values: {
           name: 'disabledomaincreds',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.7'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.7'] = {
+        name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
+        values: {
+          name: 'PerformRouterDiscovery',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.10'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.10'] = {
+        name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters',
+        values: {
+          name: 'TcpMaxDataRetransmissions',
+          type: :dword,
+          data: 3,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.11'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.11'] = {
+        name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
+        values: {
+          name: 'TcpMaxDataRetransmissions',
+          type: :dword,
+          data: 3,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'AllowLLTDIOOnDomain',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'AllowLLTDIOOnPublicNet',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'EnableLLTDIO',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-4'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'ProhibitLLTDIOOnPrivateNet',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'AllowRspndrOnDomain',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'AllowRspndrOnPublicNet',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'EnableRspndr',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-4'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD',
+        values: {
+          name: 'ProhibitRspndrOnPrivateNet',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.10.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.10.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Peernet',
+        values: {
+          name: 'Disabled',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.19.2.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.19.2.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters',
+        values: {
+          name: 'DisabledComponents',
+          type: :dword,
+          data: 255,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars',
+        values: {
+          name: 'DisableFlashConfigRegistrar',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars',
+        values: {
+          name: 'DisableInBand802DOT11Registrar',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars',
+        values: {
+          name: 'DisableUPnPRegistrar',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-4'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars',
+        values: {
+          name: 'DisableWPDRegistrar',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-5'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-5'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars',
+        values: {
+          name: 'EnableRegistrars',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\UI',
+        values: {
+          name: 'DisableWcnUi',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.21.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.21.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy',
+        values: {
+          name: 'fBlockNonDomain',
           type: :dword,
           data: 1,
         },
@@ -138,8 +370,8 @@ when 'domain_controller'
     node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeSyncAgentPrivilege'] = ''
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.1'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.1'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.1'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.1'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
       values: {
         name: 'SubmitControl',
@@ -149,8 +381,8 @@ when 'domain_controller'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.2'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.2'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.2'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.2'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters',
       values: {
         name: 'LDAPServerIntegrity',
@@ -160,8 +392,8 @@ when 'domain_controller'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.3'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.5.3'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.3'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.3'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
       values: {
         name: 'RefusePasswordChange',
@@ -171,14 +403,38 @@ when 'domain_controller'
     }
   end
 
-  if node['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.6'].nil?
-    node.default['cis-benchmarks']['windows_server_2012r2']['security_policy']['registry_keys']['2.3.10.6'] = {
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.6'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.6'] = {
       name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters',
       values: {
         name: 'NullSessionPipes',
         type: :multi_string,
         data: %w(LSARPC NETLOGON SAMR),
       },
+    }
+  end
+
+  if node['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.2.3'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.2.3'] = {
+      subcategory: 'Distribution Group Management',
+      success: true,
+      failure: true,
+    }
+  end
+
+  if node['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.1'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.1'] = {
+      subcategory: 'Directory Service Access',
+      success: true,
+      failure: true,
+    }
+  end
+
+  if node['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.2'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.2'] = {
+      subcategory: 'Directory Service Changes',
+      success: true,
+      failure: true,
     }
   end
 
