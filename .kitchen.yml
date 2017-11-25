@@ -24,6 +24,13 @@ suites:
             privilege_rights:
               SeDenyNetworkLogonRight: Guests
               SeDenyRemoteInteractiveLogonRight: Guests
+          registry_keys:
+            '18.6.1':
+              name: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system
+              values:
+                name: LocalAccountTokenFilterPolicy
+                type: dword
+                data: 1
 
   - name: level-2-member-server
     includes:
@@ -38,10 +45,16 @@ suites:
             privilege_rights:
               SeDenyNetworkLogonRight: Guests
               SeDenyRemoteInteractiveLogonRight: Guests
-            registry_keys:
-              '2.3.10.4':
-                name: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
-                values:
-                  name: disabledomaincreds
-                  type: dword
-                  data: 0
+          registry_keys:
+            '2.3.10.4':
+              name: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
+              values:
+                name: disabledomaincreds
+                type: dword
+                data: 0
+            '18.6.1':
+              name: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system
+              values:
+                name: LocalAccountTokenFilterPolicy
+                type: dword
+                data: 1
