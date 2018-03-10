@@ -97,6 +97,17 @@ when 'member_server'
     }
   end
 
+  if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.1'].nil?
+    node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.1'] = {
+      name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc',
+      values: {
+        name: 'EnableAuthEpResolution',
+        type: :dword,
+        data: 1,
+      },
+    }
+  end
+
   # Level 2
   if profile_level == 2
     if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.6'].nil?
@@ -337,6 +348,413 @@ when 'member_server'
           name: 'fBlockNonDomain',
           type: :dword,
           data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+        values: {
+          name: 'NoUseStoreOpenWith',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+        values: {
+          name: 'DisableWebPnPDownload',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\TabletPC',
+        values: {
+          name: 'PreventHandwritingDataSharing',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.4'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports',
+        values: {
+          name: 'PreventHandwritingErrorReports',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.5'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.5'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Internet Connection Wizard',
+        values: {
+          name: 'ExitOnMSICW',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.6'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.6'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+        values: {
+          name: 'NoWebServices',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.7'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.7'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+        values: {
+          name: 'DisableHTTPPrinting',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.8'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.8'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Registration Wizard Control',
+        values: {
+          name: 'NoRegistration',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.9'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.9'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SearchCompanion',
+        values: {
+          name: 'DisableContentFileUpdates',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.10'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.10'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+        values: {
+          name: 'NoOnlinePrintsWizard',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.11'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.11'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+        values: {
+          name: 'NoPublishingWizard',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.12'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.12'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Messenger\Client',
+        values: {
+          name: 'CEIP',
+          type: :dword,
+          data: 2,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.13'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.13'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient\Windows',
+        values: {
+          name: 'CEIPEnable',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.14'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.14'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting',
+        values: {
+          name: 'Disabled',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.24.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.24.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Control Panel\International',
+        values: {
+          name: 'BlockUserInputMethodsForSignIn',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+        values: {
+          name: 'DCSettingIndex',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+        values: {
+          name: 'ACSettingIndex',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc',
+        values: {
+          name: 'RestrictRemoteClients',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.5.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.5.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy',
+        values: {
+          name: 'DisableQueryRemoteServer',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.11.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.11.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}',
+        values: {
+          name: 'ScenarioExecutionEnabled',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.41.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.41.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo',
+        values: {
+          name: 'DisabledByGroupPolicy',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient',
+        values: {
+          name: 'Enabled',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpServer',
+        values: {
+          name: 'Enabled',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.37.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.37.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors',
+        values: {
+          name: 'DisableLocation',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.2.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.2.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'fSingleSessionPerUser',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'fDisableCcm',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'fDisableLPT',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.4'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.4'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'fDisablePNPRedir',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'MaxIdleTime',
+          type: :dword,
+          data: 900000,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+        values: {
+          name: 'MaxDisconnectionTime',
+          type: :dword,
+          data: 60000,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
+        values: {
+          name: 'ConnectedSearchPrivacy',
+          type: :dword,
+          data: 3,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.59.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.59.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform',
+        values: {
+          name: 'NoGenTicket',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore',
+        values: {
+          name: 'RemoveWindowsStore',
+          type: :dword,
+          data: 1,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.69.3.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.69.3.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet',
+        values: {
+          name: 'SpynetReporting',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.3'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.3'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+        values: {
+          name: 'SafeForScripting',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.2'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.2'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+        values: {
+          name: 'AllowAutoConfig',
+          type: :dword,
+          data: 0,
+        },
+      }
+    end
+
+    if node['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.87.1'].nil?
+      node.default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.87.1'] = {
+        name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service\WinRS',
+        values: {
+          name: 'AllowRemoteShellAccess',
+          type: :dword,
+          data: 0,
         },
       }
     end

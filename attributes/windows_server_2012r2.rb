@@ -2084,6 +2084,7 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.6.2'] = 
   },
 }
 
+## 18.8 System
 ## 18.8.3 Audit Process Creation
 # 18.8.3.1 (L1) Ensure 'Include command line in process creation events' is set to 'Disabled'
 # Profile Applicability:
@@ -2158,3 +2159,987 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys_remove']['18.8
 # Profile Applicability:
 #  Level 2 - Domain Controller
 #  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.1'] = nil
+
+# 18.8.20.1.2 (L2) Ensure 'Turn off downloading of print drivers over HTTP' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.2'] = nil
+
+# 18.8.20.1.3 (L2) Ensure 'Turn off handwriting personalization data sharing' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.3'] = nil
+
+# 18.8.20.1.4 (L2) Ensure 'Turn off handwriting recognition error reporting' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.4'] = nil
+
+# 18.8.20.1.5 (L2) Ensure 'Turn off Internet Connection Wizard if URL connection is referring to Microsoft.com' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.5'] = nil
+
+# 18.8.20.1.6 (L2) Ensure 'Turn off Internet download for Web publishing and online ordering wizards' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.6'] = nil
+
+# 18.8.20.1.7 (L2) Ensure 'Turn off printing over HTTP' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.7'] = nil
+
+# 18.8.20.1.8 (L2) Ensure 'Turn off Registration if URL connection is referring to Microsoft.com' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.8'] = nil
+
+# 18.8.20.1.9 (L2) Ensure 'Turn off Search Companion content file updates' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.9'] = nil
+
+# 18.8.20.1.10 (L2) Ensure 'Turn off the "Order Prints" picture task' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.10'] = nil
+
+# 18.8.20.1.11 (L2) Ensure 'Turn off the "Publish to Web" task for files and folders' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.11'] = nil
+
+# 18.8.20.1.12 (L2) Ensure 'Turn off the Windows Messenger Customer Experience Improvement Program' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.12'] = nil
+
+# 18.8.20.1.13 (L2) Ensure 'Turn off Windows Customer Experience Improvement Program' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.13'] = nil
+
+# 18.8.20.1.14 (L2) Ensure 'Turn off Windows Error Reporting' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.14'] = nil
+
+## 18.8.24 Locale Services
+# 18.8.24.1 (L2) Ensure 'Disallow copying of user input methods to the system account for sign-in' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.24.1'] = nil
+
+## 18.8.25 Logon
+# 18.8.25.1 (L1) Ensure 'Do not display network selection UI' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'DontDisplayNetworkSelectionUI',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.8.25.2 (L1) Ensure 'Do not enumerate connected users on domainjoined computers' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'DontEnumerateConnectedUsers',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.8.25.3 (L1) Ensure 'Enumerate local users on domain-joined computers' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'EnumerateLocalUsers',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.8.25.4 (L1) Ensure 'Turn off app notifications on the lock screen' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'DisableLockScreenAppNotifications',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.8.25.5 (L1) Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.5'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'AllowDomainPINLogon',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.8.29.5 Sleep Settings
+# 18.8.29.5.1 (L2) Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.1'] = nil
+
+# 18.8.29.5.2 (L2) Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.2'] = nil
+
+## 18.8.31 Remote Assistance
+# 18.8.31.1 (L1) Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.31.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'fAllowUnsolicited',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.8.31.2 (L1) Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.31.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'fAllowToGetHelp',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.8.32 Remote Procedure Call
+# 18.8.32.1 (L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.1'] = nil
+
+# 18.8.32.2 (L2) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated'
+# Profile Applicability:
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.2'] = nil
+
+## 18.8.39.5 Microsoft Support Diagnostic Tool
+# 18.8.39.5.1 (L2) Ensure 'Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.5.1'] = nil
+
+## 18.8.39.11 Windows Performance PerfTrack
+# 18.8.39.11.1 (L2) Ensure 'Enable/Disable PerfTrack' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.11.1'] = nil
+
+## 18.8.41 User Profiles
+# 18.8.41.1 (L2) Ensure 'Turn off the advertising ID' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.41.1'] = nil
+
+## 18.8.44.1 Time Providers
+# 18.8.44.1.1 (L2) Ensure 'Enable Windows NTP Client' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.1'] = nil
+
+# 18.8.44.1.2 (L2) Ensure 'Enable Windows NTP Server' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.2'] = nil
+
+## 18.9.6 App runtime
+# 18.9.6.1 (L1) Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.6.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'MSAOptional',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.8 AutoPlay Policies
+# 18.9.8.1 (L1) Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.8.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  values: {
+    name: 'NoAutoplayfornonVolume',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.8.2 (L1) Ensure 'Set the default behavior for AutoRun' is set to 'Enabled: Do not execute any autorun commands'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.8.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+  values: {
+    name: 'NoAutorun',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.8.3 (L1) Ensure 'Turn off Autoplay' is set to 'Enabled: All drives'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.8.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+  values: {
+    name: 'NoDriveTypeAutoRun',
+    type: :dword,
+    data: 255,
+  },
+}
+
+## 18.9.15 Credential User Interface
+# 18.9.15.1 (L1) Ensure 'Do not display the password reveal button' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.15.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CredUI',
+  values: {
+    name: 'DisablePasswordReveal',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.15.2 (L1) Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.15.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\CredUI',
+  values: {
+    name: 'EnumerateAdministrators',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.9.26 Event Log Service
+## 18.9.26.1 Application
+# 18.9.26.1.1 (L1) Ensure 'Application: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.1.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
+  values: {
+    name: 'Retention',
+    type: :string,
+    data: '0',
+  },
+}
+
+# 18.9.26.1.2 (L1) Ensure 'Application: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.1.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
+  values: {
+    name: 'MaxSize',
+    type: :dword,
+    data: 32768,
+  },
+}
+
+## 18.9.26.2 Security
+# 18.9.26.2.1 (L1) Ensure 'Security: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.2.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
+  values: {
+    name: 'Retention',
+    type: :string,
+    data: '0',
+  },
+}
+
+# 18.9.26.2.2 (L1) Ensure 'Security: Specify the maximum log file size (KB)' is set to 'Enabled: 196,608 or greater'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.2.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
+  values: {
+    name: 'MaxSize',
+    type: :dword,
+    data: 196608,
+  },
+}
+
+## 18.9.26.3 Setup
+# 18.9.26.3.1 (L1) Ensure 'Setup: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.3.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup',
+  values: {
+    name: 'Retention',
+    type: :string,
+    data: '0',
+  },
+}
+
+# 18.9.26.3.2 (L1) Ensure 'Setup: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.3.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup',
+  values: {
+    name: 'MaxSize',
+    type: :dword,
+    data: 32768,
+  },
+}
+
+## 18.9.26.4 System
+# 18.9.26.4.1 (L1) Ensure 'System: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.4.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
+  values: {
+    name: 'Retention',
+    type: :string,
+    data: '0',
+  },
+}
+
+# 18.9.26.4.2 (L1) Ensure 'System: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.4.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
+  values: {
+    name: 'MaxSize',
+    type: :dword,
+    data: 32768,
+  },
+}
+
+## 18.9.30 File Explorer
+# 18.9.30.2 (L1) Ensure 'Configure Windows SmartScreen' is set to 'Enabled: Require approval from an administrator before running downloaded unknown software'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.30.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  values: {
+    name: 'EnableSmartScreen',
+    type: :dword,
+    data: 2,
+  },
+}
+
+# 18.9.30.3 (L1) Ensure 'Turn off Data Execution Prevention for Explorer' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.30.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  values: {
+    name: 'NoDataExecutionPrevention',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.30.4 (L1) Ensure 'Turn off heap termination on corruption' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.30.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  values: {
+    name: 'NoHeapTerminationOnCorruption',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.30.5 (L1) Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.30.5'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+  values: {
+    name: 'PreXPSP2ShellProtocolBehavior',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.9.37 Location and Sensors
+# 18.9.37.1 (L2) Ensure 'Turn off location' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.37.1'] = nil
+
+## 18.9.47 OneDrive (formerly SkyDrive)
+# 18.9.47.1 (L1) Ensure 'Prevent the usage of OneDrive for file storage' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.47.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OneDrive',
+  values: {
+    name: 'DisableFileSyncNGSC',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.47.2 (L1) Ensure 'Prevent the usage of OneDrive for file storage on Windows 8.1' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.47.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OneDrive',
+  values: {
+    name: 'DisableFileSync',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.52.2 Remote Desktop Connection Client
+# 18.9.52.2.2 (L1) Ensure 'Do not allow passwords to be saved' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.2.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'DisablePasswordSaving',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.52.3.2 Connections
+# 18.9.52.3.2.1 (L2) Ensure 'Restrict Remote Desktop Services users to a single Remote Desktop Services session' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.2.1'] = nil
+
+## 18.9.52.3.3 Device and Resource Redirection
+# 18.9.52.3.3.1 (L2) Ensure 'Do not allow COM port redirection' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.1'] = nil
+
+# 18.9.52.3.3.2 (L1) Ensure 'Do not allow drive redirection' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'fDisableCdm',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.52.3.3.3 (L2) Ensure 'Do not allow LPT port redirection' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.3'] = nil
+
+# 18.9.52.3.3.4 (L2) Ensure 'Do not allow supported Plug and Play device redirection' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.4'] = nil
+
+## 18.9.52.3.9 Security
+# 18.9.52.3.9.1 (L1) Ensure 'Always prompt for password upon connection' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.9.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'fPromptForPassword',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.52.3.9.2 (L1) Ensure 'Require secure RPC communication' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.9.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'fEncryptRPCTraffic',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.52.3.9.3 (L1) Ensure 'Set client connection encryption level' is set to 'Enabled: High Level'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.9.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'MinEncryptionLevel',
+    type: :dword,
+    data: 3,
+  },
+}
+
+## 18.9.52.3.10 Session Time Limits
+# 18.9.52.3.10.1 (L2) Ensure 'Set time limit for active but idle Remote Desktop Services sessions' is set to 'Enabled: 15 minutes or less'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.1'] = nil
+
+# 18.9.52.3.10.2 (L2) Ensure 'Set time limit for disconnected sessions' is set to 'Enabled: 1 minute'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.2'] = nil
+
+## 18.9.52.3.11 Temporary folders
+# 18.9.52.3.11.1 (L1) Ensure 'Do not delete temp folders upon exit' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.11.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'DeleteTempDirsOnExit',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.52.3.11.2 (L1) Ensure 'Do not use temporary folders per session' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.11.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  values: {
+    name: 'PerSessionTempDir',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.53 RSS Feeds
+# 18.9.53.1 (L1) Ensure 'Prevent downloading of enclosures' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.53.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+  values: {
+    name: 'DisableEnclosureDownload',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.54 Search
+# 18.9.54.2 (L1) Ensure 'Allow indexing of encrypted files' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
+  values: {
+    name: 'AllowIndexingEncryptedStoresOrItems',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.54.3 (L2) Ensure 'Set what information is shared in Search' is set to 'Enabled: Anonymous info'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.3'] = nil
+
+## 18.9.59 Software Protection Platform
+# 18.9.59.1 (L2) Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.59.1'] = nil
+
+## 18.9.61 Store
+# 18.9.61.1 (L1) Ensure 'Turn off Automatic Download and Install of updates' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore',
+  values: {
+    name: 'AutoDownload',
+    type: :dword,
+    data: 4,
+  },
+}
+
+# 18.9.61.2 (L1) Ensure 'Turn off the offer to update to the latest version of Windows' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore',
+  values: {
+    name: 'DisableOSUpgrade',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.61.3 (L2) Ensure 'Turn off the Store application' is set to 'Enabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.3'] = nil
+
+## 18.9.69.3 MAPS
+# 18.9.69.3.1 (L2) Ensure 'Join Microsoft MAPS' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.69.3.1'] = nil
+
+## 18.9.70.2 Consent
+# 18.9.70.2.1 (L1) Ensure 'Configure Default consent' is set to 'Enabled: Always ask before sending data'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.70.2.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting\Consent',
+  values: {
+    name: 'DefaultConsent',
+    type: :dword,
+    data: 1,
+  },
+}
+
+# 18.9.70.3 (L1) Ensure 'Automatically send memory dumps for OSgenerated error reports' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.70.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting',
+  values: {
+    name: 'AutoApproveOSDumps',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.9.74 Windows Installer
+# 18.9.74.1 (L1) Ensure 'Allow user control over installs' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  values: {
+    name: 'EnableUserControl',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.74.2 (L1) Ensure 'Always install with elevated privileges' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  values: {
+    name: 'AlwaysInstallElevated',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.74.3 (L2) Ensure 'Prevent Internet Explorer security prompt for Windows Installer scripts' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.3'] = nil
+
+## 18.9.75 Windows Logon Options
+# 18.9.75.1 (L1) Ensure 'Sign-in last interactive user automatically after a system-initiated restart' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.75.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
+  values: {
+    name: 'DisableAutomaticRestartSignOn',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.84 Windows PowerShell
+# 18.9.84.1 (L1) Ensure 'Turn on PowerShell Script Block Logging' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.84.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging',
+  values: {
+    name: 'EnableScriptBlockLogging',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.84.2 (L1) Ensure 'Turn on PowerShell Transcription' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.84.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription',
+  values: {
+    name: 'EnableTranscripting',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.9.86 Windows Remote Management (WinRM)
+## 18.9.86.1 WinRM Client
+# 18.9.86.1.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.1.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  values: {
+    name: 'AllowBasic',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.86.1.2 (L1) Ensure 'Allow unencrypted traffic' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.1.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  values: {
+    name: 'AllowUnencryptedTraffic',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.86.1.3 (L1) Ensure 'Disallow Digest authentication' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.1.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  values: {
+    name: 'AllowDigest',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 18.9.86.2 WinRM Service
+# 18.9.86.2.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.1'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  values: {
+    name: 'AllowBasic',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.86.2.2 (L2) Ensure 'Allow remote server management through WinRM' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.2'] = nil
+
+# 18.9.86.2.3 (L1) Ensure 'Allow unencrypted traffic' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  values: {
+    name: 'AllowUnencryptedTraffic',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.86.2.4 (L1) Ensure 'Disallow WinRM from storing RunAs credentials' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  values: {
+    name: 'DisableRunAs',
+    type: :dword,
+    data: 1,
+  },
+}
+
+## 18.9.87 Windows Remote Shell
+# 18.9.87.1 (L2) Ensure 'Allow Remote Shell Access' is set to 'Disabled'
+# Profile Applicability:
+#  Level 2 - Domain Controller
+#  Level 2 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.87.1'] = nil
+
+## 18.9.90.1 Defer Windows Updates
+# 18.9.90.2 (L1) Ensure 'Configure Automatic Updates' is set to 'Enabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.90.2'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU',
+  values: {
+    name: 'AUOptions',
+    type: :dword,
+    data: 4,
+  },
+}
+
+# 18.9.90.3 (L1) Ensure 'Configure Automatic Updates: Scheduled install day' is set to '0 - Every day'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.90.3'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU',
+  values: {
+    name: 'ScheduledInstallDay',
+    type: :dword,
+    data: 0,
+  },
+}
+
+# 18.9.90.4 (L1) Ensure 'No auto-restart with logged on users for scheduled automatic updates installations' is set to 'Disabled'
+# Profile Applicability:
+#  Level 1 - Domain Controller
+#  Level 1 - Member Server
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.90.4'] = {
+  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU',
+  values: {
+    name: 'NoAutoRebootWithLoggedOnUsers',
+    type: :dword,
+    data: 0,
+  },
+}
+
+## 19.1.3 Personalization
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.5.1 Notifications
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.6.5 Internet Communication Management
+## 19.6.5.1 Internet Communication settings
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.7.4 Attachment Manager
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.7.26 Network Sharing
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.7.39 Windows Installer
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
+
+## 19.7.43.2 Playback
+# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
