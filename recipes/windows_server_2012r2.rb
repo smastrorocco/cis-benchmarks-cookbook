@@ -120,6 +120,9 @@ end
 # If profile is member_server, install LAPS CSE
 include_recipe 'cis-benchmarks::windows_common_laps' if profile_name == 'member_server'
 
+# EMET
+include_recipe 'cis-benchmarks::windows_common_emet'
+
 # If 18.4.14.1 is defined, we need to ensure MS15-011 is installed
 if reg_keys.keys.grep(/^18.4.14.1-/).any?
   msu_package node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['name'] do
