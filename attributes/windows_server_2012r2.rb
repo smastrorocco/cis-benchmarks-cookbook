@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
+return unless node['platform'] == 'windows' && /6.3.\d+/.match(node['platform_version'])
+
 # CIS Microsoft Windows Server 2012 R2 Benchmark v2.2.1
 # Valid profile names: member_server | domain_controller
 # Valid profile levels: 1 | 2
@@ -1473,7 +1475,7 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['9.3.5'] = {
   },
 }
 
-# 9.3.6 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local connection security rules' is set to 'No' (Scored)
+# 9.3.6 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local connection security rules' is set to 'No'
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
@@ -1946,19 +1948,13 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.12'] =
 # Profile Applicability:
 #  Level 2 - Domain Controller
 #  Level 2 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-1'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-2'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-3'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1-4'] = nil
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1'] = nil
 
 # 18.4.9.2 (L2) Ensure 'Turn on Responder (RSPNDR) driver' is set to 'Disabled'
 # Profile Applicability:
 #  Level 2 - Domain Controller
 #  Level 2 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-1'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-2'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-3'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2-4'] = nil
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2'] = nil
 
 ## 18.4.10 Microsoft Peer-to-Peer Networking Services
 # 18.4.10.2 (L2) Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'
@@ -1999,22 +1995,22 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.11.3']
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.14.1-1'] = {
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.14.1'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-  values: {
-    name: '\\\*\NETLOGON',
-    type: :string,
-    data: 'RequireMutualAuthentication=1,RequireIntegrity=1',
-  },
+  values: [
+    {
+      name: '\\\*\NETLOGON',
+      type: :string,
+      data: 'RequireMutualAuthentication=1,RequireIntegrity=1',
+    },
+    {
+      name: '\\\*\SYSVOL',
+      type: :string,
+      data: 'RequireMutualAuthentication=1,RequireIntegrity=1',
+    },
+  ],
 }
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.14.1-2'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-  values: {
-    name: '\\\*\SYSVOL',
-    type: :string,
-    data: 'RequireMutualAuthentication=1,RequireIntegrity=1',
-  },
-}
+
 default['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011'] = {
   name: 'Security Update for Windows Server 2012 R2 (KB3000483)',
   source: 'https://download.microsoft.com/download/6/9/C/69C5DAFE-FF01-43E8-A356-212932D8E70B/Windows8.1-KB3000483-x64.msu',
@@ -2034,11 +2030,7 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.19.2.1
 # Profile Applicability:
 #  Level 2 - Domain Controller
 #  Level 2 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-1'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-2'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-3'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-4'] = nil
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1-5'] = nil
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1'] = nil
 
 # 18.4.20.2 (L2) Ensure 'Prohibit access of the Windows Connect Now wizards' is set to 'Enabled'
 # Profile Applicability:
@@ -2144,13 +2136,15 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.19.3']
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_server_2012r2']['registry_keys_remove']['18.8.19.4'] = {
+default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.19.4'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system',
   values: {
     name: 'DisableBkGndGroupPolicy',
     type: :dword,
     data: '',
   },
+  recursive: false,
+  action: :delete,
 }
 
 ## 18.8.20 Internet Communication Management
