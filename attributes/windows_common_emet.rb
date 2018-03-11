@@ -4,7 +4,7 @@
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
-# TODO: Return unless Windows
+return unless node['platform'] == 'windows'
 
 ## 18.9.24 EMET
 # 18.9.24.1 (L1) Ensure 'EMET 5.51' or higher is installed
@@ -21,40 +21,30 @@ default['cis-benchmarks']['windows_common']['emet']['package'] = {
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2-1'] = {
+default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
-  values: {
-    name: 'AntiDetours',
-    type: :dword,
-    data: 1,
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2-2'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
-  values: {
-    name: 'BannedFunctions',
-    type: :dword,
-    data: 1,
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2-3'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
-  values: {
-    name: 'DeepHooks',
-    type: :dword,
-    data: 1,
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2-4'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
-  values: {
-    name: 'ExploitAction',
-    type: :dword,
-    data: 2,
-  },
+  values: [
+    {
+      name: 'AntiDetours',
+      type: :dword,
+      data: 1,
+    },
+    {
+      name: 'BannedFunctions',
+      type: :dword,
+      data: 1,
+    },
+    {
+      name: 'DeepHooks',
+      type: :dword,
+      data: 1,
+    },
+    {
+      name: 'ExploitAction',
+      type: :dword,
+      data: 2,
+    },
+  ],
 }
 
 # 18.9.24.3 (L1) Ensure 'Default Protections for Internet Explorer' is set to 'Enabled'
@@ -74,476 +64,280 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.3'
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-1'] = {
+default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\7-Zip\7z.exe',
-    type: :string,
-    data: '-EAF',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-2'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\7-Zip\7zFM.exe',
-    type: :string,
-    data: '-EAF',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-3'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\7-Zip\7zG.exe',
-    type: :string,
-    data: '-EAF',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-4'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Adobe\Adobe Photoshop CS*\Photoshop.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-5'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Foxit Reader\Foxit Reader.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-6'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Google\Chrome\Application\chrome.exe',
-    type: :string,
-    data: '+EAF+ eaf_modules:chrome_child.dll',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-7'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Google\Google Talk\googletalk.exe',
-    type: :string,
-    data: '-DEP',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-8'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\iTunes\iTunes.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-9'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Microsoft Lync\communicator.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-10'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\mIRC\mirc.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-11'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Mozilla Firefox\firefox.exe',
-    type: :string,
-    data: '+EAF+ eaf_modules:mozjs.dll;xul.dll',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-12'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Mozilla Firefox\plugin-container.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-13'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Mozilla Thunderbird\plugin-container.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-14'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Mozilla Thunderbird\thunderbird.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-15'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Opera\*\opera.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-16'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Opera\opera.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-17'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Pidgin\pidgin.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-18'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\QuickTime\QuickTimePlayer.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-19'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Real\RealPlayer\realconverter.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-20'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Real\RealPlayer\realplay.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-21'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Safari\Safari.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-22'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\SkyDrive\SkyDrive.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-23'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Skype\Phone\Skype.exe',
-    type: :string,
-    data: '-EAF',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-24'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\VideoLAN\VLC\vlc.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-25'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Winamp\winamp.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-26'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Windows Live\Mail\wlmail.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-27'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Windows Live\Photo Gallery\WLXPhotoGallery.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-28'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Windows Live\Writer\WindowsLiveWriter.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-29'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Windows Media Player\wmplayer.exe',
-    type: :string,
-    data: '-EAF -MandatoryASLR',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-30'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\WinRAR\rar.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-31'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\WinRAR\unrar.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-32'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\WinRAR\winrar.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-33'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\WinZip\winzip32.exe',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4-34'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\WinZip\winzip64.exe',
-    type: :string,
-    data: '',
-  },
+  values: [
+    {
+      name: '*\7-Zip\7z.exe',
+      type: :string,
+      data: '-EAF',
+    },
+    {
+      name: '*\7-Zip\7zFM.exe',
+      type: :string,
+      data: '-EAF',
+    },
+    {
+      name: '*\7-Zip\7zG.exe',
+      type: :string,
+      data: '-EAF',
+    },
+    {
+      name: '*\Adobe\Adobe Photoshop CS*\Photoshop.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Foxit Reader\Foxit Reader.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Google\Chrome\Application\chrome.exe',
+      type: :string,
+      data: '+EAF+ eaf_modules:chrome_child.dll',
+    },
+    {
+      name: '*\Google\Google Talk\googletalk.exe',
+      type: :string,
+      data: '-DEP',
+    },
+    {
+      name: '*\iTunes\iTunes.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Microsoft Lync\communicator.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\mIRC\mirc.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Mozilla Firefox\firefox.exe',
+      type: :string,
+      data: '+EAF+ eaf_modules:mozjs.dll;xul.dll',
+    },
+    {
+      name: '*\Mozilla Firefox\plugin-container.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Mozilla Thunderbird\plugin-container.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Mozilla Thunderbird\thunderbird.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Opera\*\opera.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Opera\opera.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Pidgin\pidgin.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\QuickTime\QuickTimePlayer.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Real\RealPlayer\realconverter.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Real\RealPlayer\realplay.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Safari\Safari.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\SkyDrive\SkyDrive.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Skype\Phone\Skype.exe',
+      type: :string,
+      data: '-EAF',
+    },
+    {
+      name: '*\VideoLAN\VLC\vlc.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Winamp\winamp.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Windows Live\Mail\wlmail.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Windows Live\Photo Gallery\WLXPhotoGallery.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Windows Live\Writer\WindowsLiveWriter.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\Windows Media Player\wmplayer.exe',
+      type: :string,
+      data: '-EAF -MandatoryASLR',
+    },
+    {
+      name: '*\WinRAR\rar.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\WinRAR\unrar.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\WinRAR\winrar.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\WinZip\winzip32.exe',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\WinZip\winzip64.exe',
+      type: :string,
+      data: '',
+    },
+  ],
 }
 
 # 18.9.24.5 (L1) Ensure 'Default Protections for Recommended Software' is set to 'Enabled'
 # Profile Applicability:
 #  Level 1 - Domain Controller
 #  Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-1'] = {
+default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Adobe\*\Reader\AcroRd32.exe',
-    type: :string,
-    data: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-2'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Adobe\Acrobat*\Acrobat\Acrobat.exe',
-    type: :string,
-    data: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-3'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Java\jre*\bin\java.exe',
-    type: :string,
-    data: '-HeapSpray',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-4'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Java\jre*\bin\javaw.exe',
-    type: :string,
-    data: '-HeapSpray',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-5'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Java\jre*\bin\javaws.exe',
-    type: :string,
-    data: '-HeapSpray',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-6'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\EXCEL.EXE',
-    type: :string,
-    data: '+ASR asr_modules:flash*.ocx',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-7'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\INFOPATH.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-8'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\LYNC.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-9'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\MSACCESS.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-10'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\MSPUB.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-11'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\OIS.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-12'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\OUTLOOK.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-13'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\POWERPNT.EXE',
-    type: :string,
-    data: '+ASR asr_modules:flash*.ocx',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-14'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\PPTVIEW.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-15'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\VISIO.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-16'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\VPREVIEW.EXE',
-    type: :string,
-    data: '',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-17'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\OFFICE1*\WINWORD.EXE',
-    type: :string,
-    data: '+ASR asr_modules:flash*.ocx',
-  },
-}
-
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5-18'] = {
-  name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
-  values: {
-    name: '*\Windows NT\Accessories\wordpad.exe',
-    type: :string,
-    data: '',
-  },
+  values: [
+    {
+      name: '*\Adobe\*\Reader\AcroRd32.exe',
+      type: :string,
+      data: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api',
+    },
+    {
+      name: '*\Adobe\Acrobat*\Acrobat\Acrobat.exe',
+      type: :string,
+      data: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api',
+    },
+    {
+      name: '*\Java\jre*\bin\java.exe',
+      type: :string,
+      data: '-HeapSpray',
+    },
+    {
+      name: '*\Java\jre*\bin\javaw.exe',
+      type: :string,
+      data: '-HeapSpray',
+    },
+    {
+      name: '*\Java\jre*\bin\javaws.exe',
+      type: :string,
+      data: '-HeapSpray',
+    },
+    {
+      name: '*\OFFICE1*\EXCEL.EXE',
+      type: :string,
+      data: '+ASR asr_modules:flash*.ocx',
+    },
+    {
+      name: '*\OFFICE1*\INFOPATH.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\LYNC.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\MSACCESS.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\MSPUB.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\OIS.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\OUTLOOK.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\POWERPNT.EXE',
+      type: :string,
+      data: '+ASR asr_modules:flash*.ocx',
+    },
+    {
+      name: '*\OFFICE1*\PPTVIEW.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\VISIO.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\VPREVIEW.EXE',
+      type: :string,
+      data: '',
+    },
+    {
+      name: '*\OFFICE1*\WINWORD.EXE',
+      type: :string,
+      data: '+ASR asr_modules:flash*.ocx',
+    },
+    {
+      name: '*\Windows NT\Accessories\wordpad.exe',
+      type: :string,
+      data: '',
+    },
+  ],
 }
 
 # 18.9.24.6 (L1) Ensure 'System ASLR' is set to 'Enabled: Application OptIn'
