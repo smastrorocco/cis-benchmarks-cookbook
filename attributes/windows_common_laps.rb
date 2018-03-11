@@ -9,7 +9,7 @@ return unless node['platform'] == 'windows'
 ## 18.2 LAPS
 # 18.2.1 (L1) Ensure LAPS AdmPwd GPO Extension / CSE is installed
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse'] = case node['kernel']['os_info']['os_architecture']
                                                              when '32-bit'
                                                                {
@@ -27,7 +27,7 @@ default['cis-benchmarks']['windows_common']['laps']['cse'] = case node['kernel']
 
 # 18.2.2 (L1) Ensure 'Do not allow password expiration time longer than required by policy' is set to 'Enabled'
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.2.2'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd',
   values: {
@@ -39,7 +39,7 @@ default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.
 
 # 18.2.3 (L1) Ensure 'Enable Local Admin Password Management' is set to 'Enabled'
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.2.3'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd',
   values: {
@@ -51,7 +51,7 @@ default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.
 
 # 18.2.4 (L1) Ensure 'Password Settings: Password Complexity' is set to 'Enabled: Large letters + small letters + numbers + special characters'
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.2.4'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd',
   values: {
@@ -63,7 +63,7 @@ default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.
 
 # 18.2.5 (L1) Ensure 'Password Settings: Password Length' is set to 'Enabled: 15 or more'
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.2.5'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd',
   values: {
@@ -75,7 +75,7 @@ default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.
 
 # 18.2.6 (L1) Ensure 'Password Settings: Password Age (Days)' is set to 'Enabled: 30 or fewer'
 # Profile Applicability:
-#  Level 1 - Member Server
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['laps']['cse']['registry_keys']['18.2.6'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd',
   values: {

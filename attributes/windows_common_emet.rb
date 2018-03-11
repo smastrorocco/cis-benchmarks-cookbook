@@ -9,8 +9,8 @@ return unless node['platform'] == 'windows'
 ## 18.9.24 EMET
 # 18.9.24.1 (L1) Ensure 'EMET 5.51' or higher is installed
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['package'] = {
   name: 'EMET 5.52',
   source: 'https://download.microsoft.com/download/F/3/6/F366901C-F3CB-4A94-B377-5611740B8B19/EMET%20Setup.msi',
@@ -19,8 +19,8 @@ default['cis-benchmarks']['windows_common']['emet']['package'] = {
 
 # 18.9.24.2 (L1) Ensure 'Default Action and Mitigation Settings' is set to 'Enabled' (plus subsettings)
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: [
@@ -49,8 +49,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2'
 
 # 18.9.24.3 (L1) Ensure 'Default Protections for Internet Explorer' is set to 'Enabled'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.3'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: {
@@ -62,8 +62,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.3'
 
 # 18.9.24.4 (L1) Ensure 'Default Protections for Popular Software' is set to 'Enabled'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: [
@@ -242,8 +242,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4'
 
 # 18.9.24.5 (L1) Ensure 'Default Protections for Recommended Software' is set to 'Enabled'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: [
@@ -342,8 +342,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5'
 
 # 18.9.24.6 (L1) Ensure 'System ASLR' is set to 'Enabled: Application OptIn'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.6'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
@@ -355,8 +355,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.6'
 
 # 18.9.24.7 (L1) Ensure 'System DEP' is set to 'Enabled: Application OptOut'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.7'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
@@ -368,8 +368,8 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.7'
 
 # 18.9.24.8 (L1) Ensure 'System SEHOP' is set to 'Enabled: Application OptOut'
 # Profile Applicability:
-#  Level 1 - Domain Controller
-#  Level 1 - Member Server
+# -- Level 1 - Domain Controller
+# -- Level 1 - Member Server
 default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.8'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
