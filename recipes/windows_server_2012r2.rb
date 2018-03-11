@@ -14,7 +14,13 @@ CISBenchmark::Profile::Windows::Helper.validate_profile_level(profile_level)
 # Lazy evaluate attributes based on profile
 include_recipe 'cis-benchmarks::_lazy_attributes_windows_server_2012r2'
 
-# Variables
+# If profile is member_server, install LAPS CSE
+include_recipe 'cis-benchmarks::windows_common_laps' if profile_name == 'member_server'
+
+# EMET
+include_recipe 'cis-benchmarks::windows_common_emet'
+
+# Apply Security Policy settings
 prefix            = "cis-windows_server_2012r2-#{profile_name}-#{profile_level}"
 database          = "C:\\Windows\\security\\database\\#{prefix}.sdb"
 security_template = "C:\\Windows\\security\\templates\\#{prefix}-security_policy.inf"
@@ -36,63 +42,6 @@ powershell_script "secedit configure #{security_template}" do
     $log = Get-Content '#{log}'
     if ($log -match 'Mismatch') { return $true } else { return $false }
   EOH
-end
-
-# Use auditpol to apply Audit Policy
-audit_policy = node['cis-benchmarks']['windows_server_2012r2']['audit_policy']
-
-audit_policy.each do |k, v|
-  next if v.nil?
-
-  subcategory = v['subcategory']
-  success = CISBenchmark::Profile::Windows::Helper.translate_auditpol_setting(v['success'])
-  failure = CISBenchmark::Profile::Windows::Helper.translate_auditpol_setting(v['failure'])
-  inclusion_setting = CISBenchmark::Profile::Windows::Helper.translate_auditpol_inclusion_setting(v['success'], v['failure'])
-
-  powershell_script "auditpol - CIS #{k}" do
-    code "auditpol /set /subcategory:'#{subcategory}' /success:'#{success}' /failure:'#{failure}'"
-    not_if <<-EOH
-      $auditpol = auditpol /get /subcategory:'#{subcategory}' /r | ConvertFrom-Csv
-      if ($auditpol.'Inclusion Setting' -eq '#{inclusion_setting}') { return $true } else { return $false }
-    EOH
-  end
-end
-
-# Apply registry settings
-# TODO: Add action key to attribute and conbine loops
-reg_keys = node['cis-benchmarks']['windows_server_2012r2']['registry_keys']
-registry_keys_remove = node['cis-benchmarks']['windows_server_2012r2']['registry_keys_remove']
-
-reg_keys.each do |k, v|
-  next if v.nil?
-
-  registry_key "CIS #{k}" do
-    key v['name']
-    values [
-      {
-        name: v['values']['name'],
-        type: v['values']['type'].to_sym,
-        data: v['values']['data'],
-      },
-    ]
-    recursive true
-  end
-end
-
-registry_keys_remove.each do |k, v|
-  next if v.nil?
-
-  registry_key "CIS #{k}" do
-    key v['name']
-    values [
-      {
-        name: v['values']['name'],
-        type: v['values']['type'].to_sym,
-        data: v['values']['data'],
-      },
-    ]
-    action :delete
-  end
 end
 
 # Alter Administrator and Guest descriptions from default
@@ -117,11 +66,46 @@ powershell_script "Set #{new_guest_user} account description" do
   EOH
 end
 
-# If profile is member_server, install LAPS CSE
-include_recipe 'cis-benchmarks::windows_common_laps' if profile_name == 'member_server'
+# Apply Audit Policy settings
+audit_policy = node['cis-benchmarks']['windows_server_2012r2']['audit_policy']
 
-# EMET
-include_recipe 'cis-benchmarks::windows_common_emet'
+audit_policy.each do |k, v|
+  next if v.nil?
+
+  subcategory = v['subcategory']
+  success = CISBenchmark::Profile::Windows::Helper.translate_auditpol_setting(v['success'])
+  failure = CISBenchmark::Profile::Windows::Helper.translate_auditpol_setting(v['failure'])
+  inclusion_setting = CISBenchmark::Profile::Windows::Helper.translate_auditpol_inclusion_setting(v['success'], v['failure'])
+
+  # Use auditpol to apply Audit Policy
+  powershell_script "auditpol - CIS #{k}" do
+    code "auditpol /set /subcategory:'#{subcategory}' /success:'#{success}' /failure:'#{failure}'"
+    not_if <<-EOH
+      $auditpol = auditpol /get /subcategory:'#{subcategory}' /r | ConvertFrom-Csv
+      if ($auditpol.'Inclusion Setting' -eq '#{inclusion_setting}') { return $true } else { return $false }
+    EOH
+  end
+end
+
+# Apply registry settings
+reg_keys = node['cis-benchmarks']['windows_server_2012r2']['registry_keys']
+
+reg_keys.each do |k, v|
+  next if v.nil?
+
+  # Build array of values and ensure type value is symbol
+  reg_keys_values = []
+  [v['values']].flatten(1).each do |value|
+    reg_keys_values.push(name: value['name'], type: value['type'].to_sym, data: value['data'])
+  end
+
+  registry_key "CIS #{k}" do
+    key v['name']
+    values reg_keys_values
+    recursive v.key?('recursive') ? v['recursive'] : true
+    action v.key?('action') ? v['action'].to_sym : :create
+  end
+end
 
 # If 18.4.14.1 is defined, we need to ensure MS15-011 is installed
 if reg_keys.keys.grep(/^18.4.14.1-/).any?
