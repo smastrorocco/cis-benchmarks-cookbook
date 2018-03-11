@@ -18,15 +18,16 @@ laps_reg_keys = node['cis-benchmarks']['windows_common']['laps']['cse']['registr
 laps_reg_keys.each do |k, v|
   next if v.nil?
 
+  # Build array of values and ensure type value is symbol
+  laps_reg_keys_values = []
+  [v['values']].flatten(1).each do |value|
+    laps_reg_keys_values.push(name: value['name'], type: value['type'].to_sym, data: value['data'])
+  end
+
   registry_key "CIS #{k}" do
     key v['name']
-    values [
-      {
-        name: v['values']['name'],
-        type: v['values']['type'].to_sym,
-        data: v['values']['data'],
-      },
-    ]
-    recursive true
+    values laps_reg_keys_values
+    recursive v.key?('recursive') ? v['recursive'] : true
+    action v.key?('action') ? v['action'].to_sym : :create
   end
 end
