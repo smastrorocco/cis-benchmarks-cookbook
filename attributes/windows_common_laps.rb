@@ -4,14 +4,7 @@
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
-# TODO: Return unless Windows
-
-# NOTE: While many other attributes that are profile specific are lazy evaluated,
-#       these are simply defined here, and the recipe to include LAPS is evaluated
-#       at runtime based on the attribute:
-#         node['cis-benchmarks']['windows_server_2012r2']['profile_name']
-#       If it is 'member_server', the windows_common_laps recipe will be included
-#       in the nodes run list.
+return unless node['platform'] == 'windows'
 
 ## 18.2 LAPS
 # 18.2.1 (L1) Ensure LAPS AdmPwd GPO Extension / CSE is installed
