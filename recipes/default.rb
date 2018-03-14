@@ -4,4 +4,4 @@
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
-include_recipe "cis-benchmarks::#{node['cis-benchmarks']['benchmark']}"
+include_recipe "cis-benchmarks::benchmark_#{node['cis-benchmarks']['benchmark']}"

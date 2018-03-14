@@ -1,6 +1,6 @@
 #
 # Cookbook:: cis-benchmarks
-# Attribute:: default
+# Attribute:: benchmark
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 

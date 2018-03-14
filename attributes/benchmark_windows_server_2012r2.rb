@@ -1,34 +1,39 @@
 #
 # Cookbook:: cis-benchmarks
-# Attribute:: windows_server_2012r2
+# Attribute:: benchmark_windows_server_2012r2
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
-return unless node['platform'] == 'windows' && /6.3.\d+/.match(node['platform_version'])
+return unless node['platform'] == 'windows'
+return unless node['platform_version'] =~ /6.3.\d+/
 
-# CIS Microsoft Windows Server 2012 R2 Benchmark v2.2.1
+###########################################################################
+#          CIS Microsoft Windows Server 2012 R2 Benchmark v2.2.1          #
+###########################################################################
+
 # Valid profile names: member_server | domain_controller
 # Valid profile levels: 1 | 2
 default['cis-benchmarks']['windows_server_2012r2']['profile_name'] = 'member_server'
 default['cis-benchmarks']['windows_server_2012r2']['profile_level'] = 1
 
-# NOTE: Many attributes below need to be derived based on the profile attibutes
-#       above.  If an attribute is set to nil, that is because it will be
-#       derived during the chef-client run.  If the attribute is defined in a
-#       wrapper cookbook, environment, or role, that value will be used instead.
-#       Use an empty string to define the attribute as 'none', in which case the
-#       attribute will not be derived.  Any attribute that is derived will be
-#       set at default precedence.
-
-##########################################################################
-#                        SECURITY POLICY SETTINGS                        #
-##########################################################################
 # Security policy settings template
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['cookbook'] = 'cis-benchmarks'
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['source'] = 'security_policy.inf.erb'
 
-### 1 Account Policies
-## 1.1 Password Policy
+# NOTE: Many attributes below need to be derived based on the profile attibutes above. If an attribute is
+# set to nil, that is because it will be derived during the chef-client run. If the attribute is defined
+# in a wrapper cookbook, environment, or role, that value will be used instead. Use an empty string to
+# define security policies as 'no one', in which case the attribute will not be derived. Any attribute that is
+# derived will be set at default precedence. Registry keys are skipped if they are an empty string.
+
+# ==================
+# 1 Account Policies
+# ==================
+
+# -------------------
+# 1.1 Password Policy
+# -------------------
+
 # 1.1.1 (L1) Ensure 'Enforce password history' is set to '24 or more password(s)'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -65,7 +70,10 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_ac
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_access']['ClearTextPassword'] = 0
 
-## 1.2 Account Lockout Policy
+# --------------------------
+# 1.2 Account Lockout Policy
+# --------------------------
+
 # 1.2.1 (L1) Ensure 'Account lockout duration' is set to '15 or more minute(s)'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -84,8 +92,14 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_ac
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_access']['ResetLockoutCount'] = 15
 
-### 2 Local Policies
-## 2.2 User Rights Assignment
+# ================
+# 2 Local Policies
+# ================
+
+# --------------------------
+# 2.2 User Rights Assignment
+# --------------------------
+
 # 2.2.1 (L1) Ensure 'Access Credential Manager as a trusted caller' is set to 'No One'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -253,7 +267,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeLockMemoryPrivilege'] = ''
 
-# 2.2.29 (L2) Ensure 'Log on as a batch job' is set to 'Administrators'
+# 2.2.29 (L2) Ensure 'Log on as a batch job' is set to 'Administrators' (DC Only)
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeBatchLogonRight'] = nil
@@ -312,7 +326,7 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeShutdownPrivilege'] = 'Administrators'
 
-# 2.2.39 (L1) Ensure 'Synchronize directory service data' is set to 'No One'
+# 2.2.39 (L1) Ensure 'Synchronize directory service data' is set to 'No One' (DC only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeSyncAgentPrivilege'] = nil
@@ -323,8 +337,14 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['privilege_rights']['SeTakeOwnershipPrivilege'] = 'Administrators'
 
-## 2.3 Security Options
-## 2.3.1 Accounts
+# --------------------
+# 2.3 Security Options
+# --------------------
+
+# --------------
+# 2.3.1 Accounts
+# --------------
+
 # 2.3.1.1 (L1) Ensure 'Accounts: Administrator account status' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -377,7 +397,10 @@ default['cis-benchmarks']['windows_server_2012r2']['security_policy']['NewAdmini
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_access']['NewGuestName'] = 'Hobbes'
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['NewGuestDescription'] = 'Bengal tiger'
 
-## 2.3.2 Audit
+# -----------
+# 2.3.2 Audit
+# -----------
+
 # 2.3.2.1 (L1) Ensure 'Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -404,7 +427,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.2.2'] =
   },
 }
 
-## 2.3.4 Devices
+# -------------
+# 2.3.4 Devices
+# -------------
+
 # 2.3.4.1 (L1) Ensure 'Devices: Allowed to format and eject removable media' is set to 'Administrators'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -431,23 +457,29 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.4.2'] =
   },
 }
 
-## 2.3.5 Domain controller
-# 2.3.5.1 (L1) Ensure 'Domain controller: Allow server operators to schedule tasks' is set to 'Disabled'
+# -----------------------
+# 2.3.5 Domain controller
+# -----------------------
+
+# 2.3.5.1 (L1) Ensure 'Domain controller: Allow server operators to schedule tasks' is set to 'Disabled' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.1'] = nil
 
-# 2.3.5.2 (L1) Ensure 'Domain controller: LDAP server signing requirements' is set to 'Require signing'
+# 2.3.5.2 (L1) Ensure 'Domain controller: LDAP server signing requirements' is set to 'Require signing' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.2'] = nil
 
-# 2.3.5.3 (L1) Ensure 'Domain controller: Refuse machine account password changes' is set to 'Disabled'
+# 2.3.5.3 (L1) Ensure 'Domain controller: Refuse machine account password changes' is set to 'Disabled' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.5.3'] = nil
 
-## 2.3.6 Domain member
+# -------------------
+# 2.3.6 Domain member
+# -------------------
+
 # 2.3.6.1 (L1) Ensure 'Domain member: Digitally encrypt or sign secure channel data (always)' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -526,7 +558,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.6.6'] =
   },
 }
 
-## 2.3.7 Interactive logon
+# -----------------------
+# 2.3.7 Interactive logon
+# -----------------------
+
 # 2.3.7.1 (L1) Ensure 'Interactive logon: Do not display last user name' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -599,7 +634,7 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.5'] =
   },
 }
 
-# 2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'
+# 2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)' (MS Only)
 # Profile Applicability:
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.6'] = nil
@@ -617,7 +652,7 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.7'] =
   },
 }
 
-# 2.3.7.8 (L1) Ensure 'Interactive logon: Require Domain Controller Authentication to unlock workstation' is set to 'Enabled'
+# 2.3.7.8 (L1) Ensure 'Interactive logon: Require Domain Controller Authentication to unlock workstation' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.8'] = nil
@@ -635,7 +670,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.7.9'] =
   },
 }
 
-## 2.3.8 Microsoft network client
+# ------------------------------
+# 2.3.8 Microsoft network client
+# ------------------------------
+
 # 2.3.8.1 (L1) Ensure 'Microsoft network client: Digitally sign communications (always)' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -675,7 +713,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.8.3'] =
   },
 }
 
-## 2.3.9 Microsoft network server
+# ------------------------------
+# 2.3.9 Microsoft network server
+# ------------------------------
+
 # 2.3.9.1 (L1) Ensure 'Microsoft network server: Amount of idle time required before suspending session' is set to '15 or fewer minute(s), but not 0'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -728,24 +769,27 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.9.4'] =
   },
 }
 
-# 2.3.9.5 (L1) Ensure 'Microsoft network server: Server SPN target name validation level' is set to 'Accept if provided by client' or higher
+# 2.3.9.5 (L1) Ensure 'Microsoft network server: Server SPN target name validation level' is set to 'Accept if provided by client' or higher (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.9.5'] = nil
 
-## 2.3.10 Network access
+# ---------------------
+# 2.3.10 Network access
+# ---------------------
+
 # 2.3.10.1 (L1) Ensure 'Network access: Allow anonymous SID/Name translation' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['security_policy']['system_access']['LSAAnonymousNameLookup'] = 0
 
-# 2.3.10.2 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts' is set to 'Enabled'
+# 2.3.10.2 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.2'] = nil
 
-# 2.3.10.3 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts and shares' is set to 'Enabled'
+# 2.3.10.3 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts and shares' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.3'] = nil
@@ -856,7 +900,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.10.11']
   },
 }
 
-## 2.3.11 Network security
+# -----------------------
+# 2.3.11 Network security
+# -----------------------
+
 # 2.3.11.1 (L1) Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -987,7 +1034,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.11.10']
   },
 }
 
-## 2.3.13 Shutdown
+# ---------------
+# 2.3.13 Shutdown
+# ---------------
+
 # 2.3.13.1 (L1) Ensure 'Shutdown: Allow system to be shut down without having to log on' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1001,7 +1051,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.13.1'] 
   },
 }
 
-## 2.3.15 System objects
+# ---------------------
+# 2.3.15 System objects
+# ---------------------
+
 # 2.3.15.1 (L1) Ensure 'System objects: Require case insensitivity for nonWindows subsystems' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1028,7 +1081,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.15.2'] 
   },
 }
 
-## 2.3.17 User Account Control
+# ---------------------------
+# 2.3.17 User Account Control
+# ---------------------------
+
 # 2.3.17.1 (L1) Ensure 'User Account Control: Admin Approval Mode for the Built-in Administrator account' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1146,8 +1202,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['2.3.17.9'] 
   },
 }
 
-### 9 Windows Firewall With Advanced Security
-## 9.1 Domain Profile
+# =========================================
+# 9 Windows Firewall With Advanced Security
+# =========================================
+
+# ------------------
+# 9.1 Domain Profile
+# ------------------
+
 # 9.1.1 (L1) Ensure 'Windows Firewall: Domain: Firewall state' is set to 'On (recommended)'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1278,7 +1340,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['9.1.10'] = 
   },
 }
 
-## 9.2 Private Profile
+# -------------------
+# 9.2 Private Profile
+# -------------------
+
 # 9.2.1 (L1) Ensure 'Windows Firewall: Private: Firewall state' is set to 'On (recommended)'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1409,7 +1474,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['9.2.10'] = 
   },
 }
 
-## 9.3 Public Profile
+# ------------------
+# 9.3 Public Profile
+# ------------------
+
 # 9.3.1 (L1) Ensure 'Windows Firewall: Public: Firewall state' is set to 'On (recommended)'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1539,9 +1607,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['9.3.10'] = 
     data: 1,
   },
 }
+# ======================================
+# 17 Advanced Audit Policy Configuration
+# ======================================
 
-### 17 Advanced Audit Policy Configuration
-## 17.1 Account Logon
+# ------------------
+# 17.1 Account Logon
+# ------------------
+
 # 17.1.1 (L1) Ensure 'Audit Credential Validation' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1552,7 +1625,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.1.1'] = {
   failure: true,
 }
 
-## 17.2 Account Management
+# -----------------------
+# 17.2 Account Management
+# -----------------------
+
 # 17.2.1 (L1) Ensure 'Audit Application Group Management' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1573,7 +1649,7 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.2.2'] = {
   failure: true,
 }
 
-# 17.2.3 (L1) Ensure 'Audit Distribution Group Management' is set to 'Success and Failure'
+# 17.2.3 (L1) Ensure 'Audit Distribution Group Management' is set to 'Success and Failure' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.2.3'] = nil
@@ -1608,7 +1684,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.2.6'] = {
   failure: true,
 }
 
-## 17.3 Detailed Tracking
+# ----------------------
+# 17.3 Detailed Tracking
+# ----------------------
+
 # 17.3.1 (L1) Ensure 'Audit Process Creation' is set to 'Success'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1619,18 +1698,24 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.3.1'] = {
   failure: false,
 }
 
-## 17.4 DS Access
-# 17.4.1 (L1) Ensure 'Audit Directory Service Access' is set to 'Success and Failure'
+# --------------
+# 17.4 DS Access
+# --------------
+
+# 17.4.1 (L1) Ensure 'Audit Directory Service Access' is set to 'Success and Failure' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.1'] = nil
 
-# 17.4.2 (L1) Ensure 'Audit Directory Service Changes' is set to 'Success and Failure'
+# 17.4.2 (L1) Ensure 'Audit Directory Service Changes' is set to 'Success and Failure' (DC Only)
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.4.2'] = nil
 
-## 17.5 Logon/Logoff
+# -----------------
+# 17.5 Logon/Logoff
+# -----------------
+
 # 17.5.1 (L1) Ensure 'Audit Account Lockout' is set to 'Success'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1681,7 +1766,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.5.5'] = {
   failure: false,
 }
 
-## 17.6 Object Access
+# ------------------
+# 17.6 Object Access
+# ------------------
+
 # 17.6.1 (L1) Ensure 'Audit Removable Storage' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1692,7 +1780,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.6.1'] = {
   failure: true,
 }
 
-## 17.7 Policy Change
+# ------------------
+# 17.7 Policy Change
+# ------------------
+
 # 17.7.1 (L1) Ensure 'Audit Audit Policy Change' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1713,7 +1804,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.7.2'] = {
   failure: false,
 }
 
-## 17.8 Privilege Use
+# ------------------
+# 17.8 Privilege Use
+# ------------------
+
 # 17.8.1 (L1) Ensure 'Audit Sensitive Privilege Use' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1724,7 +1818,10 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.8.1'] = {
   failure: true,
 }
 
-## 17.9 System
+# -----------
+# 17.9 System
+# -----------
+
 # 17.9.1 (L1) Ensure 'Audit IPsec Driver' is set to 'Success and Failure'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1775,9 +1872,18 @@ default['cis-benchmarks']['windows_server_2012r2']['audit_policy']['17.9.5'] = {
   failure: true,
 }
 
+# ======================================
 # 18 Administrative Templates (Computer)
-## 18.1 Control Panel
-## 18.1.1 Personalization
+# ======================================
+
+# ------------------
+# 18.1 Control Panel
+# ------------------
+
+# ----------------------
+# 18.1.1 Personalization
+# ----------------------
+
 # 18.1.1.1 (L1) Ensure 'Prevent enabling lock screen camera' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1804,9 +1910,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.1.1.2'] 
   },
 }
 
-## 18.2 LAPS - See windows_common_laps.rb attribute file
+# -----------------
+# 18.3 MSS (Legacy)
+# -----------------
 
-## 18.3 MSS (Legacy)
 # 18.3.1 (L1) Ensure 'MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1942,8 +2049,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.3.12'] =
   },
 }
 
-## 18.4 Network
-## 18.4.9 Link-Layer Topology Discovery
+# ------------
+# 18.4 Network
+# ------------
+
+# ------------------------------------
+# 18.4.9 Link-Layer Topology Discovery
+# ------------------------------------
+
 # 18.4.9.1 (L2) Ensure 'Turn on Mapper I/O (LLTDIO) driver' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -1956,14 +2069,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.1'] 
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.9.2'] = nil
 
-## 18.4.10 Microsoft Peer-to-Peer Networking Services
+# --------------------------------------------------
+# 18.4.10 Microsoft Peer-to-Peer Networking Services
+# --------------------------------------------------
+
 # 18.4.10.2 (L2) Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.10.2'] = nil
 
-## 18.4.11 Network Connections
+# ---------------------------
+# 18.4.11 Network Connections
+# ---------------------------
+
 # 18.4.11.2 (L1) Ensure 'Prohibit installation and configuration of Network Bridge on your DNS domain network' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -1990,7 +2109,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.11.3']
   },
 }
 
-## 18.4.14 Network Provider
+# ------------------------
+# 18.4.14 Network Provider
+# ------------------------
+
 # 18.4.14.1 (L1) Ensure 'Hardened UNC Paths' is set to 'Enabled, with "Require Mutual Authentication" and "Require Integrity" set for all NETLOGON and SYSVOL shares'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2017,15 +2139,24 @@ default['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011'] =
   checksum: '02fb4510c1582b7bb36712f0088bd2493d71cf1f0581b29b0f17239cf3b8c282',
 }
 
-## 18.4.19 TCPIP Settings
-## 18.4.19.2 Parameters
+# ----------------------
+# 18.4.19 TCPIP Settings
+# ----------------------
+
+# --------------------
+# 18.4.19.2 Parameters
+# --------------------
+
 # 18.4.19.2.1 (L2) Disable IPv6 (Ensure TCPIP6 Parameter 'DisabledComponents' is set to '0xff (255)')
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.19.2.1'] = nil
 
-## 18.4.20 Windows Connect Now
+# ---------------------------
+# 18.4.20 Windows Connect Now
+# ---------------------------
+
 # 18.4.20.1 (L2) Ensure 'Configuration of wireless settings using Windows Connect Now' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -2038,7 +2169,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.1']
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.20.2'] = nil
 
-## 18.4.21 Windows Connection Manager
+# ----------------------------------
+# 18.4.21 Windows Connection Manager
+# ----------------------------------
+
 # 18.4.21.1 (L1) Ensure 'Minimize the number of simultaneous connections to the Internet or a Windows Domain' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2052,13 +2186,16 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.21.1']
   },
 }
 
-# 18.4.21.2 (L2) Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled'
+# 18.4.21.2 (L2) Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.4.21.2'] = nil
 
-## 18.6 SCM: Pass the Hash Mitigations
-# 18.6.1 (L1) Ensure 'Apply UAC restrictions to local accounts on network logons' is set to 'Enabled'
+# -----------------------------------
+# 18.6 SCM: Pass the Hash Mitigations
+# -----------------------------------
+
+# 18.6.1 (L1) Ensure 'Apply UAC restrictions to local accounts on network logons' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.6.1'] = nil
@@ -2076,8 +2213,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.6.2'] = 
   },
 }
 
-## 18.8 System
-## 18.8.3 Audit Process Creation
+# -----------
+# 18.8 System
+# -----------
+
+# -----------------------------
+# 18.8.3 Audit Process Creation
+# -----------------------------
+
 # 18.8.3.1 (L1) Ensure 'Include command line in process creation events' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2091,7 +2234,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.3.1'] 
   },
 }
 
-## 18.8.12 Early Launch Antimalware
+# --------------------------------
+# 18.8.12 Early Launch Antimalware
+# --------------------------------
+
 # 18.8.12.1 (L1) Ensure 'Boot-Start Driver Initialization Policy' is set to 'Enabled: Good, unknown and bad but critical'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2105,7 +2251,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.12.1']
   },
 }
 
-## 18.8.19 Group Policy
+# --------------------
+# 18.8.19 Group Policy
+# --------------------
+
 # 18.8.19.2 (L1) Ensure 'Configure registry policy processing: Do not apply during periodic background processing' is set to 'Enabled: FALSE'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2147,8 +2296,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.19.4']
   action: :delete,
 }
 
-## 18.8.20 Internet Communication Management
-## 18.8.20.1 Internet Communication settings
+# -----------------------------------------
+# 18.8.20 Internet Communication Management
+# -----------------------------------------
+
+# -----------------------------------------
+# 18.8.20.1 Internet Communication settings
+# -----------------------------------------
+
 # 18.8.20.1.1 (L2) Ensure 'Turn off access to the Store' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -2233,14 +2388,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.1
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.20.1.14'] = nil
 
-## 18.8.24 Locale Services
+# -----------------------
+# 18.8.24 Locale Services
+# -----------------------
+
 # 18.8.24.1 (L2) Ensure 'Disallow copying of user input methods to the system account for sign-in' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.24.1'] = nil
 
-## 18.8.25 Logon
+# -------------
+# 18.8.25 Logon
+# -------------
+
 # 18.8.25.1 (L1) Ensure 'Do not display network selection UI' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2306,7 +2467,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.25.5']
   },
 }
 
-## 18.8.29.5 Sleep Settings
+# ------------------------
+# 18.8.29.5 Sleep Settings
+# ------------------------
+
 # 18.8.29.5.1 (L2) Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -2319,7 +2483,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.1
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.29.5.2'] = nil
 
-## 18.8.31 Remote Assistance
+# -------------------------
+# 18.8.31 Remote Assistance
+# -------------------------
+
 # 18.8.31.1 (L1) Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2346,51 +2513,69 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.31.2']
   },
 }
 
-## 18.8.32 Remote Procedure Call
-# 18.8.32.1 (L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled'
+# -----------------------------
+# 18.8.32 Remote Procedure Call
+# -----------------------------
+
+# 18.8.32.1 (L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled' (MS Only)
 # Profile Applicability:
 # -- Level 1 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.1'] = nil
 
-# 18.8.32.2 (L2) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated'
+# 18.8.32.2 (L2) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated' (MS Only)
 # Profile Applicability:
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.32.2'] = nil
 
-## 18.8.39.5 Microsoft Support Diagnostic Tool
+# -------------------------------------------
+# 18.8.39.5 Microsoft Support Diagnostic Tool
+# -------------------------------------------
+
 # 18.8.39.5.1 (L2) Ensure 'Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.5.1'] = nil
 
-## 18.8.39.11 Windows Performance PerfTrack
+# ----------------------------------------
+# 18.8.39.11 Windows Performance PerfTrack
+# ----------------------------------------
+
 # 18.8.39.11.1 (L2) Ensure 'Enable/Disable PerfTrack' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.39.11.1'] = nil
 
-## 18.8.41 User Profiles
+# ---------------------
+# 18.8.41 User Profiles
+# ---------------------
+
 # 18.8.41.1 (L2) Ensure 'Turn off the advertising ID' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.41.1'] = nil
 
-## 18.8.44.1 Time Providers
+# ------------------------
+# 18.8.44.1 Time Providers
+# ------------------------
+
 # 18.8.44.1.1 (L2) Ensure 'Enable Windows NTP Client' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.1'] = nil
 
-# 18.8.44.1.2 (L2) Ensure 'Enable Windows NTP Server' is set to 'Disabled'
+# 18.8.44.1.2 (L2) Ensure 'Enable Windows NTP Server' is set to 'Disabled' (MS Only)
 # Profile Applicability:
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.8.44.1.2'] = nil
 
-## 18.9.6 App runtime
+# ------------------
+# 18.9.6 App runtime
+# ------------------
+
 # 18.9.6.1 (L1) Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2404,7 +2589,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.6.1'] 
   },
 }
 
-## 18.9.8 AutoPlay Policies
+# ------------------------
+# 18.9.8 AutoPlay Policies
+# ------------------------
+
 # 18.9.8.1 (L1) Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2444,7 +2632,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.8.3'] 
   },
 }
 
-## 18.9.15 Credential User Interface
+# ---------------------------------
+# 18.9.15 Credential User Interface
+# ---------------------------------
+
 # 18.9.15.1 (L1) Ensure 'Do not display the password reveal button' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2471,8 +2662,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.15.2']
   },
 }
 
-## 18.9.26 Event Log Service
-## 18.9.26.1 Application
+# -------------------------
+# 18.9.26 Event Log Service
+# -------------------------
+
+# ---------------------
+# 18.9.26.1 Application
+# ---------------------
+
 # 18.9.26.1.1 (L1) Ensure 'Application: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2499,7 +2696,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.1.2
   },
 }
 
-## 18.9.26.2 Security
+# ------------------
+# 18.9.26.2 Security
+# ------------------
+
 # 18.9.26.2.1 (L1) Ensure 'Security: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2526,7 +2726,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.2.2
   },
 }
 
-## 18.9.26.3 Setup
+# ---------------
+# 18.9.26.3 Setup
+# ---------------
+
 # 18.9.26.3.1 (L1) Ensure 'Setup: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2553,7 +2756,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.3.2
   },
 }
 
-## 18.9.26.4 System
+# ----------------
+# 18.9.26.4 System
+# ----------------
+
 # 18.9.26.4.1 (L1) Ensure 'System: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2580,7 +2786,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.26.4.2
   },
 }
 
-## 18.9.30 File Explorer
+# ---------------------
+# 18.9.30 File Explorer
+# ---------------------
+
 # 18.9.30.2 (L1) Ensure 'Configure Windows SmartScreen' is set to 'Enabled: Require approval from an administrator before running downloaded unknown software'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2633,14 +2842,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.30.5']
   },
 }
 
-## 18.9.37 Location and Sensors
+# ----------------------------
+# 18.9.37 Location and Sensors
+# ----------------------------
+
 # 18.9.37.1 (L2) Ensure 'Turn off location' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.37.1'] = nil
 
-## 18.9.47 OneDrive (formerly SkyDrive)
+# ------------------------------------
+# 18.9.47 OneDrive (formerly SkyDrive)
+# ------------------------------------
+
 # 18.9.47.1 (L1) Ensure 'Prevent the usage of OneDrive for file storage' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2667,7 +2882,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.47.2']
   },
 }
 
-## 18.9.52.2 Remote Desktop Connection Client
+# ------------------------------------------
+# 18.9.52.2 Remote Desktop Connection Client
+# ------------------------------------------
+
 # 18.9.52.2.2 (L1) Ensure 'Do not allow passwords to be saved' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2681,14 +2899,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.2.2
   },
 }
 
-## 18.9.52.3.2 Connections
+# -----------------------
+# 18.9.52.3.2 Connections
+# -----------------------
+
 # 18.9.52.3.2.1 (L2) Ensure 'Restrict Remote Desktop Services users to a single Remote Desktop Services session' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.2.1'] = nil
 
-## 18.9.52.3.3 Device and Resource Redirection
+# -------------------------------------------
+# 18.9.52.3.3 Device and Resource Redirection
+# -------------------------------------------
+
 # 18.9.52.3.3.1 (L2) Ensure 'Do not allow COM port redirection' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -2720,7 +2944,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.3.4'] = nil
 
-## 18.9.52.3.9 Security
+# --------------------
+# 18.9.52.3.9 Security
+# --------------------
+
 # 18.9.52.3.9.1 (L1) Ensure 'Always prompt for password upon connection' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2760,7 +2987,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.9
   },
 }
 
-## 18.9.52.3.10 Session Time Limits
+# --------------------------------
+# 18.9.52.3.10 Session Time Limits
+# --------------------------------
+
 # 18.9.52.3.10.1 (L2) Ensure 'Set time limit for active but idle Remote Desktop Services sessions' is set to 'Enabled: 15 minutes or less'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
@@ -2773,7 +3003,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.1
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.10.2'] = nil
 
-## 18.9.52.3.11 Temporary folders
+# ------------------------------
+# 18.9.52.3.11 Temporary folders
+# ------------------------------
+
 # 18.9.52.3.11.1 (L1) Ensure 'Do not delete temp folders upon exit' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2800,7 +3033,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.52.3.1
   },
 }
 
-## 18.9.53 RSS Feeds
+# -----------------
+# 18.9.53 RSS Feeds
+# -----------------
+
 # 18.9.53.1 (L1) Ensure 'Prevent downloading of enclosures' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2814,7 +3050,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.53.1']
   },
 }
 
-## 18.9.54 Search
+# --------------
+# 18.9.54 Search
+# --------------
+
 # 18.9.54.2 (L1) Ensure 'Allow indexing of encrypted files' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2834,14 +3073,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.2']
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.54.3'] = nil
 
-## 18.9.59 Software Protection Platform
+# ------------------------------------
+# 18.9.59 Software Protection Platform
+# ------------------------------------
+
 # 18.9.59.1 (L2) Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.59.1'] = nil
 
-## 18.9.61 Store
+# -------------
+# 18.9.61 Store
+# -------------
+
 # 18.9.61.1 (L1) Ensure 'Turn off Automatic Download and Install of updates' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2874,14 +3119,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.2']
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.61.3'] = nil
 
-## 18.9.69.3 MAPS
+# --------------
+# 18.9.69.3 MAPS
+# --------------
+
 # 18.9.69.3.1 (L2) Ensure 'Join Microsoft MAPS' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.69.3.1'] = nil
 
-## 18.9.70.2 Consent
+# -----------------
+# 18.9.70.2 Consent
+# -----------------
+
 # 18.9.70.2.1 (L1) Ensure 'Configure Default consent' is set to 'Enabled: Always ask before sending data'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2908,7 +3159,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.70.3']
   },
 }
 
-## 18.9.74 Windows Installer
+# -------------------------
+# 18.9.74 Windows Installer
+# -------------------------
+
 # 18.9.74.1 (L1) Ensure 'Allow user control over installs' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2941,7 +3195,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.2']
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.74.3'] = nil
 
-## 18.9.75 Windows Logon Options
+# -----------------------------
+# 18.9.75 Windows Logon Options
+# -----------------------------
+
 # 18.9.75.1 (L1) Ensure 'Sign-in last interactive user automatically after a system-initiated restart' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2955,7 +3212,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.75.1']
   },
 }
 
-## 18.9.84 Windows PowerShell
+# --------------------------
+# 18.9.84 Windows PowerShell
+# --------------------------
+
 # 18.9.84.1 (L1) Ensure 'Turn on PowerShell Script Block Logging' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -2982,8 +3242,14 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.84.2']
   },
 }
 
-## 18.9.86 Windows Remote Management (WinRM)
-## 18.9.86.1 WinRM Client
+# -----------------------------------------
+# 18.9.86 Windows Remote Management (WinRM)
+# -----------------------------------------
+
+# ----------------------
+# 18.9.86.1 WinRM Client
+# ----------------------
+
 # 18.9.86.1.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -3023,7 +3289,10 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.1.3
   },
 }
 
-## 18.9.86.2 WinRM Service
+# -----------------------
+# 18.9.86.2 WinRM Service
+# -----------------------
+
 # 18.9.86.2.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -3069,14 +3338,20 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.86.2.4
   },
 }
 
-## 18.9.87 Windows Remote Shell
+# ----------------------------
+# 18.9.87 Windows Remote Shell
+# ----------------------------
+
 # 18.9.87.1 (L2) Ensure 'Allow Remote Shell Access' is set to 'Disabled'
 # Profile Applicability:
 # -- Level 2 - Domain Controller
 # -- Level 2 - Member Server
 default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.87.1'] = nil
 
-## 18.9.90.1 Defer Windows Updates
+# -------------------------------
+# 18.9.90.1 Defer Windows Updates
+# -------------------------------
+
 # 18.9.90.2 (L1) Ensure 'Configure Automatic Updates' is set to 'Enabled'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
@@ -3115,25 +3390,3 @@ default['cis-benchmarks']['windows_server_2012r2']['registry_keys']['18.9.90.4']
     data: 0,
   },
 }
-
-## 19.1.3 Personalization
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.5.1 Notifications
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.6.5 Internet Communication Management
-## 19.6.5.1 Internet Communication settings
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.7.4 Attachment Manager
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.7.26 Network Sharing
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.7.39 Windows Installer
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY
-
-## 19.7.43.2 Playback
-# USER SETTINGS NEED TO BE ENFORCED VIA GROUP POLICY

@@ -1,22 +1,22 @@
 #
 # Cookbook:: cis-benchmarks
-# Recipe:: windows_common_emet
+# Recipe:: windows_emet
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
 # Install EMET
-windows_package node['cis-benchmarks']['windows_common']['emet']['package']['name'] do
-  source node['cis-benchmarks']['windows_common']['emet']['package']['source']
-  checksum node['cis-benchmarks']['windows_common']['emet']['package']['checksum']
+windows_package node['cis-benchmarks']['windows']['emet']['package']['name'] do
+  source node['cis-benchmarks']['windows']['emet']['package']['source']
+  checksum node['cis-benchmarks']['windows']['emet']['package']['checksum']
   options '/quiet'
   installer_type :msi
 end
 
 # Apply EMET registry settings
-emet_reg_keys = node['cis-benchmarks']['windows_common']['emet']['registry_keys']
+emet_reg_keys = node['cis-benchmarks']['windows']['emet']['registry_keys']
 
 emet_reg_keys.each do |k, v|
-  next if v.nil?
+  next if v.to_s.empty?
 
   # Build array of values and ensure type value is symbol
   emet_reg_keys_values = []

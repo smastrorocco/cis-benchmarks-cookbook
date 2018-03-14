@@ -1,6 +1,6 @@
 #
 # Cookbook:: cis-benchmarks
-# Recipe:: windows_server_2012r2
+# Recipe:: benchmark_windows_server_2012r2
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
@@ -11,14 +11,16 @@ profile_level = node['cis-benchmarks']['windows_server_2012r2']['profile_level']
 CISBenchmark::Profile::Windows::Helper.validate_profile_name(profile_name)
 CISBenchmark::Profile::Windows::Helper.validate_profile_level(profile_level)
 
-# Lazy evaluate attributes based on profile
-include_recipe 'cis-benchmarks::_lazy_attributes_windows_server_2012r2'
+# Lazy evaluate attributes based on profile. Porfile level 2 is evaluated first so
+# that level 1 attributes don't get evaluated if they are already set by level 2.
+include_recipe "cis-benchmarks::_lazy_attributes_windows_server_2012r2_#{profile_name}_level_2" if profile_level == 2
+include_recipe "cis-benchmarks::_lazy_attributes_windows_server_2012r2_#{profile_name}_level_1"
 
 # If profile is member_server, install LAPS CSE
-include_recipe 'cis-benchmarks::windows_common_laps' if profile_name == 'member_server'
+include_recipe 'cis-benchmarks::windows_laps' if profile_name == 'member_server'
 
 # EMET
-include_recipe 'cis-benchmarks::windows_common_emet'
+include_recipe 'cis-benchmarks::windows_emet'
 
 # Apply Security Policy settings
 prefix            = "cis-windows_server_2012r2-#{profile_name}-#{profile_level}"
@@ -91,7 +93,7 @@ end
 reg_keys = node['cis-benchmarks']['windows_server_2012r2']['registry_keys']
 
 reg_keys.each do |k, v|
-  next if v.nil?
+  next if v.to_s.empty?
 
   # Build array of values and ensure type value is symbol
   reg_keys_values = []

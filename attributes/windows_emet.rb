@@ -1,17 +1,20 @@
 #
 # Cookbook:: cis-benchmarks
-# Attribute:: windows_common_emet
+# Attribute:: windows_emet
 #
 # Copyright:: 2017, Steve Mastrorocco, All Rights Reserved.
 
 return unless node['platform'] == 'windows'
 
-## 18.9.24 EMET
+# ------------
+# 18.9.24 EMET
+# ------------
+
 # 18.9.24.1 (L1) Ensure 'EMET 5.51' or higher is installed
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['package'] = {
+default['cis-benchmarks']['windows']['emet']['package'] = {
   name: 'EMET 5.52',
   source: 'https://download.microsoft.com/download/F/3/6/F366901C-F3CB-4A94-B377-5611740B8B19/EMET%20Setup.msi',
   checksum: '419740d3f8557a0c93b9181a5eaabb12a2b4a7a6843e83b02dfb4b080fbc31de',
@@ -21,7 +24,7 @@ default['cis-benchmarks']['windows_common']['emet']['package'] = {
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.2'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: [
     {
@@ -51,7 +54,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.2'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.3'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.3'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: {
     name: '*\Internet Explorer\iexplore.exe',
@@ -64,7 +67,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.3'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.4'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: [
     {
@@ -244,7 +247,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.4'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.5'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\Defaults',
   values: [
     {
@@ -344,7 +347,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.5'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.6'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.6'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
     name: 'ASLR',
@@ -357,7 +360,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.6'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.7'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.7'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
     name: 'DEP',
@@ -370,7 +373,7 @@ default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.7'
 # Profile Applicability:
 # -- Level 1 - Domain Controller
 # -- Level 1 - Member Server
-default['cis-benchmarks']['windows_common']['emet']['registry_keys']['18.9.24.8'] = {
+default['cis-benchmarks']['windows']['emet']['registry_keys']['18.9.24.8'] = {
   name: 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EMET\SysSettings',
   values: {
     name: 'SEHOP',
