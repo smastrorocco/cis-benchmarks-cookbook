@@ -110,10 +110,9 @@ reg_keys.each do |k, v|
 end
 
 # If 18.4.14.1 is defined, we need to ensure MS15-011 is installed
-if reg_keys.keys.grep(/^18.4.14.1-/).any?
-  msu_package node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['name'] do
-    source node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['source']
-    checksum node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['checksum']
-    action :install
-  end
+msu_package node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['name'] do
+  source node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['source']
+  checksum node['cis-benchmarks']['windows_server_2012r2']['msu_packages']['ms15-011']['checksum']
+  action :install
+  not_if { reg_keys['18.4.14.1'].to_s.empty? }
 end
